@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Vale, me amas? 🥰</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #ffe0f0; 
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            overflow: hidden; 
+        }
+        .container {
+            padding: 20px;
+            position: relative; 
+            width: 90%; 
+            max-width: 400px;
+        }
+        /* ESTILO PARA LAS IMÁGENES LOCALES */
+        #imagenPrincipal, #imagenFinal { 
+            max-width: 100%;
+            height: 200px; /* Tamaño fijo para que no salte el contenido */
+            object-fit: contain; 
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #d81b60; 
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        #siBtn, #noBtn {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            margin: 10px;
+            border: none;
+            border-radius: 25px; 
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: absolute; 
+            left: 50%; 
+            transform: translateX(-50%);
+            white-space: nowrap; 
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        #siBtn {
+            background-color: #ff5252; 
+            color: white;
+            top: 350px; 
+        }
+        #noBtn {
+            background-color: #cfd8dc; 
+            color: #546e7a;
+            top: 420px; 
+            font-size: 1.0em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <img id="imagenPrincipal" src="pika.jpg" alt="Imagen inicial">
+        
+        <h1>¿Vale, me amas? 💕</h1>
+        
+        <button id="siBtn" onclick="decirSi()">
+            ¡CLARO QUE SÍ! 🥰
+        </button>
+        
+        <button id="noBtn" onclick="moverBotonNo()">
+            Mmm... no lo sé... 🤔
+        </button>
+    </div>
+
+    <script>
+        const frasesNo = [
+            "¿Seguro que no me amas? 😥",
+            "¡Anda, imperdonable! 😭",
+            "¿Ni un poquito así?",
+            "¡No te lo perdonaré jamás! 😠",
+            "¡Mi corazón se rompe! 💔",
+            "¡Ya para! El 'SÍ' está gigante... 😂",
+            "Dilo: ¡YO TAMBIÉN TE AMO! 💕",
+            "Noooooooo...",
+        ];
+        
+        // ***************************************************************
+        // *** IMPORTANTE: RUTAS DE ARCHIVOS EN LA CARPETA 'img' ***
+        // ***************************************************************
+        const imagenesNo = [
+            "triste1.jpg",  // Debe coincidir con el nombre de tu archivo en la carpeta 'img'
+            "blanco.jpg", 
+            "tris.jpg", 
+            "triste2.jpg", 
+            "perrito.jpg", 
+            "nosotros.jpg", 
+            "yo.jpeg", 
+            "blue.jpeg",
+        ];
+
+        let indiceCambio = -1; 
+
+        function moverBotonNo() {
+            const noBtn = document.getElementById('noBtn');
+            const siBtn = document.getElementById('siBtn');
+            const imagenPrincipal = document.getElementById('imagenPrincipal'); 
+
+            // Lógica de movimiento
+            const newX = Math.random() * 200 - 100;
+            const newY = Math.random() * 200 - 100;
+            noBtn.style.transform = `translate(${newX}px, ${newY}px)`;
+            
+            // Lógica de cambio de texto e imagen
+            indiceCambio++; 
+            if (indiceCambio >= frasesNo.length) { 
+                indiceCambio = 0; 
+            }
+
+            noBtn.textContent = frasesNo[indiceCambio];
+            imagenPrincipal.src = imagenesNo[indiceCambio]; // CAMBIO DE IMAGEN LOCAL
+
+            // Lógica de crecimiento del SÍ
+            const currentSize = parseFloat(getComputedStyle(siBtn).fontSize);
+            if (currentSize < 40) {
+                 siBtn.style.fontSize = (currentSize * 1.08) + 'px'; 
+                 siBtn.style.padding = (parseFloat(getComputedStyle(siBtn).paddingTop) + 3) + 'px ' + (parseFloat(getComputedStyle(siBtn).paddingLeft) + 6) + 'px';
+            }
+        }
+        
+        function decirSi() {
+             // ***************************************************************
+             // *** IMPORTANTE: RUTA DEL ARCHIVO FINAL EN LA CARPETA 'img' ***
+             // ***************************************************************
+             const imagenFinalSi = "amor.jpeg"; 
+
+             alert('¡Lo sabía! ¡YO TAMBIÉN TE AMO! 🥰');
+             
+             const container = document.querySelector('.container');
+             container.innerHTML = `
+                <img id="imagenFinal" src="${imagenFinalSi}" alt="Puppy Feliz">
+                <h1>¡I LOVE YOU!</h1>
+                <p>💖 Eres la mejor, te amo aun que le haya dado varias veces a que no me amas. 💖</p>
+             `;
+        }
+    </script>
+</body>
+</html>
